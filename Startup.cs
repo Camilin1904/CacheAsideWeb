@@ -22,18 +22,20 @@ namespace webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(); 
+            var rawString = Configuration.GetConnectionString("DataStore");
+
+            var connectionStrings = rawString.Split("---");
+            var dataStoreConnectionString = connectionStrings[0];
+            var cacheConnectionString = connectionStrings[1];
 
             // Register the DbContext with the connection string from the configuration
             services.AddDbContext<StickersContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DataStore")));
-            Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa");
-            Console.WriteLine(Configuration.GetConnectionString("DataStore"));
-            Console.WriteLine(Configuration.GetConnectionString("Cache"));
+                options.UseSqlServer(dataStoreConnectionString));
             // Register the Redis cache service
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = Configuration.GetConnectionString("Cache");
+                options.Configuration = cacheConnectionString;
                 options.InstanceName = "SampleInstance";
             });
         }
