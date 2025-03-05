@@ -25,12 +25,12 @@ namespace webapi
 
             // Register the DbContext with the connection string from the configuration
             services.AddDbContext<StickersContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DataStore")));
+                options.UseSqlServer(SQLAZURECONNSTR_));
 
             // Register the Redis cache service
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = Configuration.GetConnectionString("Cache");
+                options.Configuration = REDISCACHECONNSTR_;
                 options.InstanceName = "SampleInstance";
             });
         }
