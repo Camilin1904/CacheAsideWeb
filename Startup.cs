@@ -26,7 +26,9 @@ namespace webapi
             // Register the DbContext with the connection string from the configuration
             services.AddDbContext<StickersContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DataStore")));
-
+            Console.Write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa");
+            Console.Write(Configuration.GetConnectionString("DataStore"));
+            Console.Write(Configuration.GetConnectionString("Cache"));
             // Register the Redis cache service
             services.AddStackExchangeRedisCache(options =>
             {
